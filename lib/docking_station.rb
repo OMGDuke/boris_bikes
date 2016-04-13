@@ -5,14 +5,9 @@ class DockingStation
 
 	attr_reader :bike
 
-	def initialize
-		@bike_count = 0
-	end
-
 	def release_bike
-		@bike_count += 1
-		raise "All bikes taken" if @bike_count >= 50
-		return Bike.new
+		raise "All bikes taken" unless @bike
+		@bike
 	end
 
 	def dock bike
