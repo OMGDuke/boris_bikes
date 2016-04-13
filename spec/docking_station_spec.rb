@@ -24,4 +24,12 @@ describe DockingStation do
   describe "Docking" do
       it{should respond_to(:dock).with(1).argument}
   end
+
+  describe "Bike" do
+  	it "return docked bikes" do  
+	  	bike = Bike.new
+	  	subject.dock(bike)
+	    expect(subject.bike).to eq bike 
+	end
+  end
 end
