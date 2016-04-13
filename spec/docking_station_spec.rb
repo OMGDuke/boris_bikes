@@ -25,13 +25,14 @@ describe DockingStation do
       	20.times {subject.dock(Bike.new)}
       	expect{subject.dock(Bike.new)}.to raise_error 'The docking station is full'
       end
+
   end
 
   describe "Bike" do
   	it "return docked bikes" do
 	  	bike = Bike.new
 	  	subject.dock(bike)
-	    expect(subject.bike).to eq bike
+	    expect(subject.bikes).to eq [bike]
 	   end
   end
 end
