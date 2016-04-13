@@ -25,7 +25,7 @@
       station = DockingStation.new
       bike = Bike.new
       docked_bike = station.dock(bike)
-      expect(station.bike).to eq docked_bike
+      expect(station.bikes).to eq docked_bike
     end
 
     it 'gives an error message when there is no bike' do
@@ -34,10 +34,8 @@
     end
     it 'gives an error message there are no spaces to dock' do
       station = DockingStation.new
-      bike1=Bike.new
-      bike2=Bike.new
-      station.dock(bike1)
-      expect { station.dock(bike2) }.to raise_error("Full!")
+      20.times { station.dock(Bike.new) }
+      expect { station.dock(Bike.new) }.to raise_error("Full!")
     end
 
   end
