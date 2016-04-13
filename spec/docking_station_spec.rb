@@ -4,6 +4,7 @@
     let(:bike) { Bike.new }
     let(:station) { DockingStation.new }
     let(:docked_bike) { station.dock(bike) }
+    let(:capacity) { DockingStation::DEFAULT_CAPACITY }
 
     describe '#release_bike' do
       it 'releases a bike' do
@@ -24,7 +25,7 @@
       expect { station.release_bike }.to raise_error("All bikes taken")
     end
     it 'gives an error message there are no spaces to dock' do
-      20.times { station.dock(Bike.new) }
+      capacity.times { station.dock(Bike.new) }
       expect { station.dock(Bike.new) }.to raise_error("Full!")
     end
 
