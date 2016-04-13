@@ -13,5 +13,12 @@
      #'docks method excepts one argument' do
     it { is_expected.to respond_to(:dock).with(1).argument}
 
+    it 'allows a user to see a docked bike' do
+      station = DockingStation.new
+      bike = station.release_bike
+      docked_bike = station.dock(bike)
+      expect(station.bike).to eq docked_bike
+    end
+
   end
 
