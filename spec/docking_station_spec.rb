@@ -28,9 +28,16 @@
       expect(station.bike).to eq docked_bike
     end
 
-    it 'gives an error message when more there is no bike' do
+    it 'gives an error message when there is no bike' do
       station = DockingStation.new
       expect { station.release_bike }.to raise_error("All bikes taken")
+    end
+    it 'gives an error message there are no spaces to dock' do
+      station = DockingStation.new
+      bike1=Bike.new
+      bike2=Bike.new
+      station.dock(bike1)
+      expect { station.dock(bike2) }.to raise_error("Full!")
     end
 
   end
