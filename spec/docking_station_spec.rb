@@ -21,6 +21,10 @@ describe DockingStation do
 
   describe "Docking" do
       it{should respond_to(:dock).with(1).argument}
+      it "raises an error when docking station is full" do
+      	subject.dock(Bike.new)
+      	expect(subject.dock(Bike.new)).to raise_error
+      end
   end
 
   describe "Bike" do
