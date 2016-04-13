@@ -20,5 +20,10 @@
       expect(station.bike).to eq docked_bike
     end
 
+    it 'gives an error message when more than 50 bikes are released' do
+      station =DockingStation.new
+    expect { 100.times do station.release_bike end }.to raise_error("All bikes taken")
+    end
+
   end
 
