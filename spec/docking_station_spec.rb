@@ -2,7 +2,7 @@
   describe DockingStation do
 
     let(:bike) { Bike.new }
-    let(:station) { DockingStation.new }
+    let(:station) { DockingStation.new}
     let(:docked_bike) { station.dock(bike) }
     let(:capacity) { DockingStation::DEFAULT_CAPACITY }
 
@@ -28,6 +28,22 @@
       capacity.times { station.dock(Bike.new) }
       expect { station.dock(Bike.new) }.to raise_error("Full!")
     end
+    it 'has a default capacity' do
+      expect(subject.capacity).to eq DockingStation::DEFAULT_CAPACITY
+    end
+
+    it 'capacity can be set and an error raised when capacity is full' do
+      docking = DockingStation.new(10)
+      10.times do docking.dock(Bike.new) end
+      expect { docking.dock(Bike.new) }.to raise_error("Full!")
+      end
+
+
 
   end
+
+
+    # it {is_expected.to respond_to(:station).with(instance_of(Fixnum))}
+
+
 
