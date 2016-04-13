@@ -19,7 +19,9 @@ describe DockingStation do
     it 'is a class of Bike' do
       expect(subject.release_bike).to be_an_instance_of Bike
     end
-
   end
 
+  describe "Docking" do
+      it{should respond_to(:dock).with(1).argument}
+  end
 end
