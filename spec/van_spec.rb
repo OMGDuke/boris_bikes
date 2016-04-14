@@ -11,8 +11,10 @@ describe Van do
   end
 
   let(:bike) {double :bike}
-  let(:stn) {double :stn}
   let(:broken_bike) { double(:broken_bike, working?: false, report_broken: false)}
+  let(:stn) {double :stn}
+  let(:garage) {double :garage}
+
     describe "#accept" do
       it "accepts a bike" do
         subject.accept([bike])
@@ -24,6 +26,13 @@ describe Van do
         subject.travel
         broken = stn.broken_bikes
         subject.accept([broken])
+        expect(subject.bikes).to eq [bike]
+      end
+
+      it "accepts fixed bikes from the garage" do
+        allow(garage).to receive(:fixed_bikes).and_return(bike)
+        fixed = garage.fixed_bikes
+        subject.accept([fixed])
         expect(subject.bikes).to eq [bike]
       end
 
@@ -43,6 +52,17 @@ describe Van do
         subject.accept([broken_bike])
         subject.accept([broken_bike])
         expect(subject.bikes).to eq [broken_bike, broken_bike]
+      end
+
+      it "docks fixed bikes at the Docking Station" do
+        allow(stn).to receive(:dock).and_return(bike)
+        subject.accept([bike])
+        subject.accept([bike])
+        subject.bikes.each do |bike|
+           stn.dock(bike)
+           subject.bikes.delete(bike)
+        end
+        expect(subject.bikes).to eq []
       end
     end
 
