@@ -3,7 +3,7 @@
 require 'bike'
 
 class Van
-  attr_reader :capacity, :bikes
+  attr_reader :capacity, :bikes, :location
 
   DEFAULT_CAPACITY = 5
 
@@ -14,7 +14,7 @@ class Van
   end
 
   def pickup(bike)
-    if @location ==  "Docking Station" && bike.working? == true
+    if @location == "Docking Station" && bike.working? == true
       raise "Bike is not broken"
     elsif @location == "Garage" && bike.working? == false
       raise "Bike is broken"
@@ -28,7 +28,7 @@ class Van
   end
 
   def travel
-    @location == "Garage" ? location = "Docking Station" : location = "Garage"
+    @location == "Garage" ? @location = "Docking Station" : @location = "Garage"
   end
 
 end
