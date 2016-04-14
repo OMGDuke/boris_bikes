@@ -1,60 +1,49 @@
 require 'van'
 
 describe Van do
-  it "can carry up to 5 bikes" do
+  it "has a capacity of 5 bikes" do
     expect(subject.capacity).to eq Van::DEFAULT_CAPACITY
   end
+
   it "can travel between the Garage and Docking Station" do
     subject.travel
-    Van.location.should eq("Docking Station")
+    expect(subject.location).to eq "Docking Station"
   end
 
   let(:bike) {double :bike}
-    describe "#pickup" do
-      it "picks up a bike" do
-        allow(bike).to receive(:working?).and_return(true)
-        subject.pickup(bike)
+  let(:stn) {double :stn}
+  let(:broken_bike) { double(:broken_bike, working?: false, report_broken: false)}
+    describe "#accept" do
+      it "accepts a bike" do
+        subject.accept([bike])
         expect(subject.bikes).to eq [bike]
       end
 
-      it "only picks up broken bikes at the docking station" do
-        allow(bike).to receive(:working?).and_return(true)
+      it "accepts broken bikes from Docking Stations" do
+        allow(stn).to receive(:broken_bikes).and_return(bike)
         subject.travel
-        if bike.working? == true
-          expect { subject.pickup(bike) }.to raise_error "Bike is not broken"
-        end
+        broken = stn.broken_bikes
+        subject.accept([broken])
+        expect(subject.bikes).to eq [bike]
       end
 
-      it "only picks up working bikes at the garage" do
-        allow(bike).to receive(:report_broken).and_return(false)
-        allow(bike).to receive(:working?).and_return(false)
-        bike.report_broken
-        expect { subject.pickup(bike) }.to raise_error "Bike is broken"
+      it "raises an error if there are more than 5 bikes to collect" do
+        expect { subject.accept([bike,bike,bike,bike,bike,bike]) }.to raise_error "This van can only carry 5 bikes"
       end
     end
 
     describe "#release" do
       it "releases a bike" do
-        allow(bike).to receive(:working?).and_return(true)
-        subject.pickup(bike)
+        subject.accept([bike])
         subject.travel
-        expect(subject.release_bike).to eq bike
+        expect(subject.release_bike).to eq [bike]
       end
 
-      it "only releases working bikes at the docking station" do
-        allow(bike).to receive(:report_broken).and_return(false)
-        subject.travel
-        bike.report_broken
-        expect { subject.release_bike}.to raise_error "Bike is broken"
-      end
-
-      it "only releases broken bikes at the garage" do
-        allow(bike).to receive(:working?).and_return(false)
-        subject.travel
-        subject.pickup(bike)
-        allow(bike).to receive(:working?).and_return(true)
-        subject.travel
-        expect { subject.release_bike }.to raise_error "Bike is working"
+      it "releases broken bikes at Garage" do
+        subject.accept([broken_bike])
+        subject.accept([broken_bike])
+        expect(subject.bikes).to eq [broken_bike, broken_bike]
       end
     end
+
 end

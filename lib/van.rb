@@ -1,6 +1,7 @@
-#pickup bikes
+#accept bikes
 #release bikes
 require 'bike'
+require 'docking_station'
 
 class Van
   attr_reader :capacity, :bikes, :location
@@ -13,18 +14,16 @@ class Van
     @location = "Garage"
   end
 
-  def pickup(bike)
-    if @location == "Docking Station" && bike.working? == true
-      raise "Bike is not broken"
-    elsif @location == "Garage" && bike.working? == false
-      raise "Bike is broken"
+  def accept(bike)
+    if bike.length > @capacity
+      raise "This van can only carry 5 bikes"
     else
-    @bikes << bike
+      @bikes.push(*bike)
     end
   end
 
   def release_bike
-    @bikes.pop
+      @bikes.pop(@bikes.length)
   end
 
   def travel

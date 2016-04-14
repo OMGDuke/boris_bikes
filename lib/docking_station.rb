@@ -29,6 +29,14 @@ class DockingStation
    bikes
  end
 
+ def broken_bikes
+   broken = []
+   bikes.each do |bike|
+     broken << bike if bike.working? == false
+   end
+   broken
+ end
+
   private
 
   attr_reader :bikes
