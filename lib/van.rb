@@ -16,7 +16,7 @@ class Van
     if bike.length > @capacity
       raise "This van can only carry 5 bikes"
     else
-        @bikes.push(*bike)
+      @bikes.push(*bike)
       @bikes
     end
   end

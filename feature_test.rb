@@ -18,4 +18,6 @@ stn.dock(bike3)
 
 van.travel
 van.accept(stn.broken_bike_finder)
+stn.clear_broken
 van.bikes
+stn.bikes

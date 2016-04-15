@@ -27,9 +27,17 @@ class DockingStation
 	end
 
   def broken_bike_finder
-    @bikes.each {|x| broken_bikes << @bikes.push if x.broken?}
-    broken_bikes
-    broken_bikes = []
+    @bikes.each do |x|
+      if x.broken?
+        @broken_bikes << x
+      end
+    end
+    @broken_bikes
+  end
+
+  def clear_broken
+    @bikes -= @broken_bikes
+    @broken_bikes = []
   end
 
 private
