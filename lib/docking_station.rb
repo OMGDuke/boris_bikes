@@ -27,7 +27,9 @@ class DockingStation
 	end
 
   def broken_bike_finder
-    @bikes.each {|x| broken_bikes << x if x.broken?}
+    @bikes.each {|x| broken_bikes << @bikes.push if x.broken?}
+    broken_bikes
+    broken_bikes = []
   end
 
 private
@@ -38,7 +40,3 @@ private
    @bikes.empty?
   end
 end
-
-
-
-

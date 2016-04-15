@@ -1,5 +1,5 @@
-require 'bike'
-require 'docking_station'
+require_relative 'bike'
+require_relative 'docking_station'
 
 class Van
   attr_reader :capacity, :bikes, :location
@@ -16,7 +16,8 @@ class Van
     if bike.length > @capacity
       raise "This van can only carry 5 bikes"
     else
-      @bikes.push(*bike)
+        @bikes.push(*bike)
+      @bikes
     end
   end
 

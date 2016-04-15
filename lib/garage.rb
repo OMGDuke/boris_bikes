@@ -1,3 +1,5 @@
+require_relative 'bike'
+
 class Garage
   attr_accessor :fixed_bikes, :garage_broken_bikes
   def initialize
