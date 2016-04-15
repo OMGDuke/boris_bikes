@@ -17,11 +17,19 @@ describe Garage do
   it 'starts a garage with a storage space for broken bikes' do
     expect(subject.garage_broken_bikes).to eq []
   end
-  describe '#fix_bikes' do
+  describe '#intake' do
     it 'can intake broken bikes' do
       subject.intake([broken_bike,broken_bike])
       expect(subject.garage_broken_bikes).to eq [broken_bike, broken_bike]
     end
 
+  end
+  describe '#fix_bikes' do
+    it 'fixes broken bikes' do
+      subject.intake([broken_bike,broken_bike])
+      subject.fix_bikes
+      expect(subject.fixed_bikes).to eq [broken_bike, broken_bike]
+      expect(subject.garage_broken_bikes).to eq []
+    end
   end
 end
