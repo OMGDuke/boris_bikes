@@ -3,6 +3,7 @@ require 'van'
 describe Van do
   it 'has storage capacity' do
     expect(subject.storage).to eq []
+
   end
 
   describe '#pick_up' do
