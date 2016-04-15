@@ -1,16 +1,31 @@
-require_relative 'docking_station'
-require_relative 'bike'
+require 'bike'
+require 'docking_station'
+
 class Van
-  attr_reader :storage
+  attr_reader :capacity, :bikes, :location
+
+  DEFAULT_CAPACITY = 5
 
   def initialize
-    @storage = []
+    @capacity = DEFAULT_CAPACITY
+    @bikes = []
+    @location = "Garage"
   end
-  def pick_up(dock)
-    @storage += (dock.broken_bikes)
+
+  def accept(bike)
+    if bike.length > @capacity
+      raise "This van can only carry 5 bikes"
+    else
+      @bikes.push(*bike)
+    end
   end
-  def bikes_are_broken
-    true
+
+  def release_bike
+      @bikes.pop(bikes.length)
+  end
+
+  def travel
+    @location == "Garage" ? @location = "Docking Station" : @location = "Garage"
   end
 
 end
