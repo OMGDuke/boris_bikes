@@ -11,6 +11,6 @@ class Van
   end
   def bikes_are_broken
     true
-  end\
+  end
 
 end
